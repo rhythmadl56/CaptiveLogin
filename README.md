@@ -1,128 +1,103 @@
-# Captive Login
+# CaptiveLogin
 
-Captive Login is a small automation tool that handles authentication for captive Wi-Fi portals automatically.
+A small Windows/Electron automation tool that automatically logs into my hostel's captive Wi-Fi portal using saved credentials.
 
-It was built to solve a simple but annoying problem: hostel Wi-Fi requires users to repeatedly authenticate through a web-based captive portal before accessing the internet. Captive Login automates that process so the user doesn't have to manually open the portal and log in every time.
+The project was built to eliminate the repetitive process of manually opening the hostel Wi-Fi login page and entering credentials whenever the session expires.
 
-## Features
+## What It Does
 
-* Automatically detects the captive login portal
-* Automates username/password authentication
-* Uses Playwright to interact with the portal
-* Designed around hostel Wi-Fi captive portal environments
-* Can be extended to run as a background service
-* Credentials can be stored securely using the Windows Credential Manager
+CaptiveLogin:
+
+* Detects and opens the hostel's captive login portal
+* Retrieves saved credentials securely from the Windows Credential Manager
+* Automatically fills in the username and password
+* Submits the login form
+* Uses Playwright to automate the browser interaction
 
 ## How It Works
 
-The basic workflow is:
-
 ```text
 Connect to Hostel Wi-Fi
-        ↓
-Check Internet Connectivity
-        ↓
-Captive Portal Detected?
-        ↓
-Open Login Page
-        ↓
-Fill Credentials
-        ↓
+          ↓
+Captive Portal Appears
+          ↓
+CaptiveLogin Opens Portal
+          ↓
+Retrieve Saved Credentials
+          ↓
+Fill Username & Password
+          ↓
 Submit Login Form
-        ↓
-Internet Access Restored
+          ↓
+Internet Access
 ```
-
-The browser automation is handled using **Playwright**, which interacts with the captive portal just like a normal browser session.
 
 ## Tech Stack
 
+* **Electron** — Desktop application
 * **Node.js** — Application runtime
 * **Playwright** — Browser automation
-* **Windows netsh** — Wi-Fi/network interaction
-* **Windows Credential Manager / keytar** — Secure credential storage
+* **Keytar** — Secure credential storage
+* **Chromium** — Automated browser
 
-## Installation
+## Setup
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/captive-login.git
-cd captive-login
+git clone https://github.com/rhythmadl56/CaptiveLogin.git
+cd CaptiveLogin
 ```
 
-Install dependencies:
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-Install the Playwright browser:
+### 3. Install Playwright Chromium
 
 ```bash
 npx playwright install chromium
 ```
 
-Create your configuration/environment variables as required by the application.
+### 4. Save your credentials
 
-Then run:
+Run:
+
+```bash
+node setup.js
+```
+
+Enter your hostel Wi-Fi username and password when prompted.
+
+The credentials are stored using the system's credential manager through Keytar rather than being saved directly in the source code.
+
+### 5. Start the application
 
 ```bash
 npm start
 ```
 
-## Configuration
+## Important
 
-The application requires the credentials used by the captive portal.
+This project was developed specifically for the captive Wi-Fi portal used by my hostel.
 
-For development, these should be provided through environment variables or another secure configuration method.
+The portal URL, form fields, and authentication flow are currently configured for that environment, so **it is not designed to work with every captive portal**.
 
-**Do not hard-code your Wi-Fi credentials into the source code.**
+If your network uses a different captive portal, the automation logic will likely need to be modified.
 
-Example:
+## Why I Built It
 
-```env
-WIFI_USERNAME=your_username
-WIFI_PASSWORD=your_password
-```
+This started as a simple personal automation project.
 
-## Project Structure
-
-```text
-captive-login/
-│
-├── src/
-│   ├── login.js
-│   ├── network.js
-│   └── ...
-│
-├── .env.example
-├── package.json
-├── package-lock.json
-└── README.md
-```
-
-> The exact structure may vary depending on the current implementation.
-
-## Why I Built This
-
-This project started as a practical automation problem.
-
-Having to repeatedly authenticate through a captive portal on hostel Wi-Fi was annoying, so instead of manually logging in every time, I experimented with automating the browser interaction.
-
-It also served as a practical project for learning **browser automation, network connectivity detection, Windows networking commands, and credential management**.
-
-## Limitations
-
-This project is designed around a specific captive-portal workflow and may not work with every Wi-Fi provider or authentication system.
-
-Changes to the captive portal's HTML structure, authentication flow, URLs, or security mechanisms may require changes to the automation logic.
+Having to repeatedly log into the hostel Wi-Fi portal was annoying, so I built a small Electron application to automate the process and experiment with browser automation, credential management, and desktop application development.
 
 ## Disclaimer
 
-This project is intended for use on networks where you are authorized to authenticate.
+Use this only on networks you are authorized to access.
 
-Do not use it to bypass network restrictions or access networks without permission.
+The project is intended to automate legitimate authentication, not to bypass network restrictions or gain unauthorized access.
 
 ## License
 
