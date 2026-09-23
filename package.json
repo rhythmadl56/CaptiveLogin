@@ -1,0 +1,64 @@
+{
+  "name": "captivelogin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "electron .",
+    "build": "tsc -b && vite build",
+    "package": "npm run build && electron-builder --win nsis",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "main": "electron/main.js",
+  "build": {
+    "appId": "com.portalpilot.portalpilot",
+    "productName": "PortalPilot",
+    "files": [
+      "dist/**",
+      "electron/**",
+      "public/**",
+      "package.json",
+      "services/**",
+      "*.js",
+      "*.json"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "public/icons.svg"
+    }
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "auto-launch": "^5.0.6",
+    "electron-is-dev": "^3.0.1",
+    "electron-log": "^5.4.4",
+    "electron-updater": "^6.8.9",
+    "keytar": "^7.9.0",
+    "node-wifi": "^2.0.16",
+    "playwright": "^1.62.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3",
+    "eslint": "^10.8.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^8.2.0"
+  }
+}
